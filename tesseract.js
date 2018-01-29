@@ -1,0 +1,37 @@
+#!/usr/bin/env node
+
+const Loader = require('./lib/loader.js')
+const CLICommand = require('./lib/cli_command.js')
+
+var argv = require('yargs')
+    .usage('Usage: $0 <command> [options]')
+    .command('todos', 'Show remaining todos')
+    .command('list', 'List objects')
+    .example('$0 todos -p ./my/project', 'show todos in the files')
+    .example('$0 list', 'list all objects')
+    .example('$0 list --filter \'@.kind=Component\'', 'list all objects matching a filter')
+    .alias('o','output')
+    .string('o')
+    .nargs('o',1)
+    .describe('o',"output format")
+    .default('o','human')
+    .choices('o', ['human','json'])
+    .alias('f', 'filter')
+    .nargs('f',1)
+    .string('f')
+    .describe('f', 'JSONPath filter')
+    .alias('p', 'project')
+    .nargs('p', 1)
+    .describe('p', 'Path to a project or single file')
+    .default('p','.')
+    .help('h')
+    .alias('h', 'help')
+    .epilog('made my pluce - 2018')
+    .argv;
+
+Loader(argv.p)
+.then((data) => {
+  return CLICommand(argv._)(argv,data)
+})
+.then(console.log)
+.catch(console.log)
