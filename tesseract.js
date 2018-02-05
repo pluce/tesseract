@@ -36,5 +36,14 @@ Loader(argv.p)
   ctx.style = 'ansi'
   return CLICommand(argv._)(argv,ctx)
 })
-.then(console.log)
+.then(r => {
+  if(typeof r == "string") {
+    console.log(r)
+    process.exit(0)
+  } else if(typeof r == "boolean") {
+    process.exit(r?0:1)
+  } else {
+    process.exit(0)
+  }
+})
 .catch(console.log)
