@@ -1,0 +1,14 @@
+title: API Reference
+
+language_tabs:
+  - images
+
+toc_footers:
+  - <a href='https://github.com/pluce/tesseract'>Documentation made with Tesseract</a>
+
+includes:
+  - main
+
+search: true
+
+highlight_theme: monokai
