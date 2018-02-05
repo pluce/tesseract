@@ -1,0 +1,6 @@
+{% for step in obj.steps %}- {{ step.textLine }}
+{% endfor %}
+{% if obj.validation.length > 0 %}<aside class="warning">
+**Validation error:**
+<ul>{% for val in obj.validation %}<li>{{ val }}</li>{% endfor %}</ul>
+</aside>{% endif %}

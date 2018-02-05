@@ -1,0 +1,16 @@
+{% macro namelink(name) %}[{{name}}](#{{name | lower}}){% endmacro %}
+{% for cat, objs in data %}
+# {{cat}}
+{% for obj in objs %}
+## {{obj.name}}
+
+{% if obj.notes %}{{obj.notes}}{% endif %}
+{% if obj.todo %}<aside class="notice">
+**TODO** {{obj.todo}}
+</aside>{% endif %}
+
+{% include obj.kind+".md.njk" %}
+{% if obj.references.length > 0 %}### References
+{% for r in obj.references %}[{{r}}](#{{r | lower}}){% if not loop.last %},{% endif %}{% endfor %}
+{% endif %}{% endfor %}
+{% endfor %}

@@ -33,6 +33,7 @@ var argv = require('yargs')
 Loader(argv.p)
 .then((data) => {
   var ctx = new Context(data)
+  ctx.style = 'ansi'
   return CLICommand(argv._)(argv,ctx)
 })
 .then(console.log)

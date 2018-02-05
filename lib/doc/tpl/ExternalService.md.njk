@@ -1,0 +1,11 @@
+Service type: **{{ obj.spec.type | capitalize }}**
+
+{% if obj.spec.fields %}### Defined by
+{% for field,type in obj.spec.fields %}
+- **{{field}}**: {{type}}{%endfor%}{% endif %}
+
+{% if obj.spec.holds %}### Data responsability
+{% for db in obj.spec.holds %}
+- {{db.data}}{% endfor %}
+
+{% endif %}

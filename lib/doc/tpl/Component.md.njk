@@ -1,0 +1,18 @@
+### Interface
+
+#### Inputs
+{% for cons in obj.spec.consumes %}
+- Message *{{namelink(cons.message)}}* from {{namelink(cons.from[0].service)}} ({{cons.from[0].topic}}){% endfor %}
+
+#### Outputs
+{% for prod in obj.spec.produces %}
+- Message *{{namelink(prod.message)}}* to {{namelink(prod.to[0].service)}} ({{prod.to[0].topic}}){% endfor %}
+{% if obj.spec.accesses %}
+### Dependencies
+{% for acc in obj.spec.accesses %}
+{% if acc.api %}- Use API *{{namelink(acc.api)}}* to {{acc.to}}{% endif %}
+{% if acc.service %}- Use service *{{namelink(acc.service)}}* to {{acc.to}}{% endif %}{% endfor %}{% endif %}
+{% if obj.spec.holds %}
+### Data responsability
+{% for db in obj.spec.holds %}
+- {{db.data}}{% endfor %}{% endif %}
