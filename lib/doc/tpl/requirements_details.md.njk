@@ -1,0 +1,22 @@
+
+### {{req.name}}
+
+{% if req.notes %}{{req.notes}}{% endif %}
+{% if req.todo %}
+!!! note "Todo"
+    {{req.todo}}{% endif %}
+
+{% for case in req.spec.cases %}
+!!! info "Functional requirement"
+    When **{{case.when}}**, the system **{{case.it}}**.
+{% endfor %}
+{% for case in req.spec.constraints %}
+!!! warning "Technical requirement"
+    {% if case.when %}When **{{case.when}}**, the system **{{case.it}}**.{% endif %}{% if case.until %}Until **{{case.until}}**, the system **{{case.it}}**{% if case.excepted %}, excepted {{case.excepted}}{% endif %}.{% endif %}
+{% endfor %}
+
+{{ req.spec.more }}
+
+{% if req.references.length > 0 %}#### References
+{% for r in req.references %}{{namelink(r)}}{% if not loop.last %}, {% endif %}{% endfor %}
+{% endif %}

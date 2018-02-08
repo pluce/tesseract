@@ -18,8 +18,17 @@ var argv = require('yargs')
         .example('$0 list', 'list all objects')
         .example('$0 list --filter \'@.kind=Component\'', 'list all objects matching a filter')
       })
+    .command('references', 'Get links between objects', (yargs) => {
+        yargs.option('missing', {
+          describe: 'Show references to non-defined objects',
+          alias: 'm',
+          type: 'boolean'
+        })
+      })
     .command('validate', 'Validate model')
       .example('$0 validate', 'validate a model')
+    .command('doc', 'Generate documentation')
+      .example('$0 doc', 'generate HTML and wiki documentation')
     .command('scenario <scenario>', 'Read and validate a scenario',(yargs) => {
         yargs.positional('source', {
           describe: 'scenario name',
@@ -27,6 +36,19 @@ var argv = require('yargs')
           nargs: 1
         })
         .example('$0 scenario BasicUseCase', 'read a given scenario')
+      })
+    .command('log [fact]', 'Log a fact in the history log.',(yargs) => {
+        yargs.option('fact', {
+          describe: 'A decision explaining an architecture choice',
+          type: 'string'
+        })
+        .example('$0 fact "No one should be able to refuse a message"', 'logs a decision')
+        .option('author', {
+          describe: 'a decision author',
+          alias: 'a',
+          type: 'string',
+          nargs: 1
+        })
       })
     .describe('o',"output format")
       .alias('o','output')
@@ -38,10 +60,11 @@ var argv = require('yargs')
       .alias('p', 'project')
       .nargs('p', 1)
       .default('p','.')
-    .demandCommand()
+    .demandCommand(1, 'You need at least one command before moving on')
     .help('h')
       .alias('h', 'help')
     .epilog('made by pluce - 2018')
+    .strict()
     .argv;
 
 Loader(argv.p)

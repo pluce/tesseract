@@ -11,7 +11,7 @@ Tesseract is a domain-specific language to model software architecture. It can d
 A command-line interface is provided in order to:
 
 - browse the model (query objects)
-- generate HTML documentation
+- generate HTML documentation (needs python+pip installed)
 - check validity of the model
 - read a scenario
 
@@ -19,7 +19,7 @@ Use `tesseract -h` to read help.
 
 ## Model Syntax
 
-A Tesseract model is a bunch of YAML files in a folder, or just a single YAML file. Use `--project` option of the CLI to tell where is your model
+A Tesseract model is a bunch of YAML files in a folder, or just a single YAML file. Use `--project` option of the CLI to tell where is your model. Please ensure your files describing objects have `.defs.yml` suffix.
 
 >Cannot browse folder recursively yet
 
@@ -29,7 +29,7 @@ Every part of the model is an `Object`. An `Object` is always described like thi
 kind: KindOfObject
 name: UniqueNameOfTheObject
 notes: | A description of the Object, can be a long text if you use YAML notation
-todo: An optional TODO field, use in the 'tesseract todos' command
+todo: An optional TODO field, used in the 'tesseract todos' command
 spec:
     # This is the specification of the object, fields will vary depending on object kind
     key: value
@@ -52,3 +52,7 @@ These objects represent messages sent asynchronously between Components or Exter
 ### Scenario
 
 These objects represent a description of the system behaviour. It describes step-by-step the resolution of a use case.
+
+### Requirement
+
+These objects are functional or technical requirements of the system.

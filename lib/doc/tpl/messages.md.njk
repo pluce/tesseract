@@ -1,0 +1,15 @@
+{% extends "objects_layout.md.njk" %}
+
+{% block object_details %}
+{% if obj.spec.supported_by %}#### Exchange
+
+Message exchanged on service {{namelink(obj.spec.supported_by.service)}} (topic: {{obj.spec.supported_by.topic}}){% endif %}
+
+#### Fields
+
+Field | Data type
+----- | ---------
+{% for field,type in obj.spec.fields %}{{field}} | {{type}}
+{%endfor%}
+
+{% endblock %}

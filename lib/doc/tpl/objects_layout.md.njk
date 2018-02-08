@@ -1,0 +1,17 @@
+
+## {{cat}}s
+
+{% for obj in objs %}
+### {{obj.name}}
+
+{% if obj.notes %}{{obj.notes}}{% endif %}
+{% if obj.todo %}
+!!! note "Todo"
+    {{obj.todo}}{% endif %}
+
+{% block object_details %}{% endblock %}
+{% if obj.references.length > 0 %}#### References
+{% for r in obj.references %}{{namelink(r)}}{% if not loop.last %}, {% endif %}{% endfor %}
+{% endif %}
+
+---{% endfor %}

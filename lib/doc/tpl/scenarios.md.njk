@@ -1,0 +1,13 @@
+{% extends "objects_layout.md.njk" %}
+
+{% block object_details %}
+{% for step in obj.steps %}- {{ step.textLine }}
+{% endfor %}
+{% if obj.validation.length > 0 %}
+
+!!! warning "Validation error"
+    {% for val in obj.validation %}- {{ val }}
+    {% endfor %}
+
+{% endif %}
+{% endblock %}

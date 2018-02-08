@@ -1,0 +1,11 @@
+# Requirements
+
+{% for cat,list in requirements %}
+
+## {{cat}}
+
+{% for req in list %}
+
+  {% include "requirements_details.md.njk" %}
+
+---{% endfor %}{% endfor %}
