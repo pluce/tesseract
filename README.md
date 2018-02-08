@@ -28,7 +28,8 @@ Every part of the model is an `Object`. An `Object` is always described like thi
 ```yaml
 kind: KindOfObject
 name: UniqueNameOfTheObject
-notes: | A description of the Object, can be a long text if you use YAML notation
+notes: |
+  A description of the Object, can be a long text if you use YAML notation
 todo: An optional TODO field, used in the 'tesseract todos' command
 spec:
     # This is the specification of the object, fields will vary depending on object kind
@@ -56,3 +57,13 @@ These objects represent a description of the system behaviour. It describes step
 ### Requirement
 
 These objects are functional or technical requirements of the system.
+
+## Sample
+
+Some samples are available in the `samples` directory. You may try them easily:
+
+```shell
+npm install -g serve
+tesseract -p samples/slock.yml doc && serve docs
+```
+

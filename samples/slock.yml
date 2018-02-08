@@ -1,0 +1,73 @@
+# This sample architecture describe a Slack-like app architecture
+kind: Requirement
+name: RetrieveUserActionsEvents
+notes: The system must retrieve all user interface events for analytics
+spec:
+  cases:
+    - when: a user does important actions
+      it: should log the event
+    - when: a crash occurs
+      it: should log the crash
+---
+kind: Component
+name: SlockClient
+notes: Desktop client for Slock
+spec:
+  accesses:
+    - api: SlockEdge
+      to: |
+        post and get new messages
+  produces:
+    - message: AnalyticsEvent
+---
+kind: Component
+name: SlockEdge
+notes: Edge API for Slock
+todo: Write API specification
+---
+kind: Component
+name: SlockCore
+notes: Core logic for Slock
+spec:
+  holds:
+    - data: Message
+    - data: User
+    - data: Channel
+  consumes:
+    - message: AnalyticsEvent
+---
+kind: Message
+name: AnalyticsEvent
+notes: Message sent when user does some actions
+spec:
+  fields:
+    event_type: String
+    event_date: Date
+    event_meta: Object
+  supported_by:
+    service: GooglePubSub
+    topic: analytics
+---
+kind: ExternalService
+name: GooglePubSub
+spec:
+  type: messaging
+  fields:
+    topic: String
+notes: |
+  Asynchronous message queue using publish/subscribe many-to-many model, with at-least-once delivery
+---
+kind: Scenario
+name: UserPostingAMessage
+notes: This scenario describes the nominal case of an user sending a new message
+spec:
+  steps:
+    - action: format the message
+      done_by: SlockClient
+    - api: SlockEdge
+      called_by: SlockClient
+      to:
+        - create: Message
+    - message: AnalyticsEvent
+      produced_by: SlockClient
+---
