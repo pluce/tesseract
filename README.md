@@ -41,6 +41,7 @@ Let me describe each supported Kind at the moment.
 ### Component
 
 These objects are basic building block of software. They can be anything like a code class, a worker, a microservice, an API... anything that belongs to the software you're designing.
+To design a sub-component, add a field in the sub-component spec `inside: MyParentComponentName`.
 
 ### ExternalService
 

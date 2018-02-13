@@ -1,0 +1,5 @@
+{% macro namelink(name) %}[{{name}}](#{{name | lower}}){% endmacro %}
+# {% if details_of %}{{ details_of }} Reference{% else %}Overview{% endif %}
+{% for cat,objs in data %}
+  {% include 'docs/'+cat.toLowerCase()+'s.md.njk' %}
+{% endfor %}

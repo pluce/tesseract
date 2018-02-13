@@ -1,0 +1,14 @@
+site_name: {% if meta('project.name') %}{{meta('project.name')}} architecture{% else %}Architecture{% endif %} documentation
+pages:
+  - index.md
+  - requirements.md
+  - Reference:
+      - overview.md
+      {% for k,rp in details %}- {{rp.page}}
+      {% endfor %}
+extra_css:
+  - css/light_toc.css
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true

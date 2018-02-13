@@ -1,5 +1,0 @@
-{% macro namelink(name) %}[{{name}}](#{{name | lower}}){% endmacro %}
-# Reference
-{% for cat,objs in data %}
-  {% include cat.toLowerCase()+'s.md.njk' %}
-{% endfor %}

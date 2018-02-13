@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const Loader = require('./lib/loader.js')
 const CLICommand = require('./lib/cli_command.js')
 const Context = require('./lib/objects/context.js')
+const Model = require('./lib/model.js')
 
 var argv = require('yargs')
     .usage('Usage: $0 <command> [options]')
@@ -27,8 +27,8 @@ var argv = require('yargs')
       })
     .command('validate', 'Validate model')
       .example('$0 validate', 'validate a model')
-    .command('doc', 'Generate documentation')
-      .example('$0 doc', 'generate HTML and wiki documentation')
+    .command('docs', 'Generate documentation')
+      .example('$0 docs', 'generate HTML and wiki documentation')
     .command('scenario <scenario>', 'Read and validate a scenario',(yargs) => {
         yargs.positional('source', {
           describe: 'scenario name',
@@ -67,11 +67,10 @@ var argv = require('yargs')
     .strict()
     .argv;
 
-Loader(argv.p)
-.then((data) => {
-  var ctx = new Context(data)
-  ctx.style = 'ansi'
-  return CLICommand(argv._)(argv,ctx)
+Model.load(argv.p)
+.then( model => {
+  model.context.style = 'ansi'
+  return CLICommand(argv._)(argv,model)
 })
 .then(r => {
   if(typeof r == "string") {

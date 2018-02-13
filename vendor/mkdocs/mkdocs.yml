@@ -1,9 +1,0 @@
-site_name: My Docs
-pages:
-  - index.md
-  - requirements.md
-  - reference.md
-extra_css:
-  - css/light_toc.css
-markdown_extensions:
-  - admonition

@@ -1,4 +1,4 @@
-{% extends "objects_layout.md.njk" %}
+{% extends "docs/objects_layout.md.njk" %}
 
 {% block object_details %}
 #### Interface
@@ -11,6 +11,10 @@
 ##### Outputs
 {% for prod in obj.spec.produces %}
 - Message *{{namelink(prod.message)}}* to {{namelink(getReference('Message',prod.message).supported_by.service)}} ({{getReference('Message',prod.message).supported_by.topic}}){% endfor %}
+
+##### Exposed APIs
+{% for api in obj.spec.exposes %}
+- Endpoint `{{api.api}}` ({{api.type.toUpperCase()}}){% endfor %}
 {% if obj.spec.accesses %}
 #### Dependencies
 {% for acc in obj.spec.accesses %}

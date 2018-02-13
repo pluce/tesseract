@@ -24,6 +24,10 @@ kind: Component
 name: SlockEdge
 notes: Edge API for Slock
 todo: Write API specification
+spec:
+  exposes:
+    - api: /messages
+      type: rest
 ---
 kind: Component
 name: SlockCore
