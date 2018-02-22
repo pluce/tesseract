@@ -1,6 +1,7 @@
 site_name: {% if meta('project.name') %}{{meta('project.name')}} architecture{% else %}Architecture{% endif %} documentation
 pages:
-  - index.md
+  - index.md{% for f in custom_doc_files %}
+  - {{f}}{% endfor %}
   - requirements.md
   - Reference:
       - overview.md
